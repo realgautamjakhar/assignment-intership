@@ -2,7 +2,7 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import BucketList from "../components/BucketList";
 import Header from "../components/Header";
-
+import { AnimatePresence } from "framer-motion";
 const Layout = () => {
   return (
     <div className="grid grid-rows-[60px_1fr] h-screen bg-whiteGD">

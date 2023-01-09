@@ -1,8 +1,12 @@
 import React from "react";
-
+import { motion } from "framer-motion";
+import { Staggeritem } from "../utils/animation";
 const Card = ({ card, iframe, editCard, deleteCard }) => {
   return (
-    <div className="relative h-32 px-6 py-4 bg-accentGD hover:scale-105 duration-300 ease-in-out hover:shadow-accent cursor-pointer text-white flex flex-col justify-center font-bold rounded-lg">
+    <motion.div
+      variants={Staggeritem}
+      className="relative h-32 px-6 py-4 bg-accentGD hover:scale-105 duration-300 ease-in-out hover:shadow-accent cursor-pointer text-white flex flex-col justify-center font-bold rounded-lg"
+    >
       <div onClick={iframe}>
         <p className=" capitalize lg:text-2xl md:text-xl text-lg pr-10 line-clamp-2">
           {card?.name}
@@ -48,7 +52,7 @@ const Card = ({ card, iframe, editCard, deleteCard }) => {
           </svg>
         </button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

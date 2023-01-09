@@ -67,7 +67,7 @@ const cardSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCards.pending, (state) => {
-      state.loading = false;
+      state.loading = true;
     }),
       builder.addCase(fetchCards.fulfilled, (state, action) => {
         (state.value = action.payload), (state.loading = false);
