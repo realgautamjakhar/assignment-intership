@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const fetchBuckets = createAsyncThunk("/buckets", async () => {
-  const response = await fetch("http://localhost:3000/buckets");
+  const response = await fetch(`${import.meta.env.VITE_API_BASE}/buckets`);
   const result = await response.json();
   return result;
 });
@@ -9,15 +9,18 @@ export const fetchBuckets = createAsyncThunk("/buckets", async () => {
 export const updateBucketNameDb = createAsyncThunk(
   "/bucket/updatename",
   async ({ bucketid, name }) => {
-    const response = await fetch(`http://localhost:3000/buckets/${bucketid}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name,
-      }),
-    });
+    const response = await fetch(
+      `${import.meta.env.VITE_API_BASE}/buckets/${bucketid}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+        }),
+      }
+    );
     const result = await response.json();
     return result;
   }
@@ -27,7 +30,7 @@ export const createBucket = createAsyncThunk(
   "/bucket/create",
   async ({ name, createdAt, id }) => {
     console.log(name, createdAt, id);
-    const response = await fetch(`http://localhost:3000/buckets`, {
+    const response = await fetch(`${import.meta.env.VITE_API_BASE}/buckets`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -40,6 +43,27 @@ export const createBucket = createAsyncThunk(
     });
     const result = await response.json();
     return result;
+  }
+);
+
+export const deleteBucket = createAsyncThunk(
+  "/bucket/delete",
+  async ({ id }) => {
+    if (id) {
+      //Delete all the containing cards
+      const deleteCards = await fetch(
+        `${import.meta.env.VITE_API_BASE}/cards?bucket=${id}`,
+        {
+          method: "DELETE",
+        }
+      );
+      const deleteBucket = await fetch(
+        `${import.meta.env.VITE_API_BASE}/buckets/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
+    }
   }
 );
 

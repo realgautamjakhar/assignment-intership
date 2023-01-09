@@ -1,8 +1,7 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { useEffect } from "react";
 import { Fragment, useState } from "react";
 import { useDispatch } from "react-redux";
-import { createCard, editCard } from "../../features/cardSlice";
+import { editCard } from "../../features/cardSlice";
 import SelectComponent from "../SelectComponent";
 
 export default function EditCardModal({

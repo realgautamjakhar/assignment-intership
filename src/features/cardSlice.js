@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const fetchCards = createAsyncThunk("/cards", async ({ bucketid }) => {
   const response = await fetch(
-    `http://localhost:3000/cards?bucket=${bucketid}`
+    `${import.meta.env.VITE_API_BASE}/cards?bucket=${bucketid}`
   );
   const result = await response.json();
   return result;
@@ -11,7 +11,7 @@ export const fetchCards = createAsyncThunk("/cards", async ({ bucketid }) => {
 export const createCard = createAsyncThunk(
   "/cards/create",
   async ({ name, id, createdAt, bucket, link }) => {
-    const response = await fetch("http://localhost:3000/cards", {
+    const response = await fetch(`${import.meta.env.VITE_API_BASE}/cards`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -32,24 +32,27 @@ export const createCard = createAsyncThunk(
 export const editCard = createAsyncThunk(
   "/cards/edit",
   async ({ id, name, link, bucket }) => {
-    const response = await fetch(`http://localhost:3000/cards/${id}`, {
-      method: "PATCH",
-      body: JSON.stringify({
-        name,
-        link,
-        bucket,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      `${import.meta.env.VITE_API_BASE}/cards/${id}`,
+      {
+        method: "PATCH",
+        body: JSON.stringify({
+          name,
+          link,
+          bucket,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     const result = await response.json();
     return result;
   }
 );
 
 export const deleteCard = createAsyncThunk("/card/delete", async ({ id }) => {
-  await fetch(`http://localhost:3000/cards/${id}`, {
+  await fetch(`${import.meta.env.VITE_API_BASE}/cards/${id}`, {
     method: "DELETE",
   });
   return id;
