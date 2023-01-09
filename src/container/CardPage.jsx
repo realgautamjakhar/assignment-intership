@@ -12,6 +12,8 @@ import EditCardModal from "../components/Modals/EditCardModal";
 import ConfirmModal from "../components/Modals/ConfirmModal";
 import { motion } from "framer-motion";
 import { Staggercontainer, Staggeritem } from "../utils/animation";
+import Loader from "../components/Loader";
+
 const CardPage = () => {
   const { id } = useParams();
   const [isDeleting, setisDeleting] = useState(false);
@@ -98,7 +100,7 @@ const CardPage = () => {
           </motion.div>
         </>
       ) : (
-        <div className="grid place-content-center">Loading</div>
+        <Loader />
       )}
 
       {/* Create Card Button  */}
