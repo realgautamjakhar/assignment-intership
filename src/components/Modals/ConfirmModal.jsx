@@ -1,19 +1,13 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { useEffect } from "react";
-import { Fragment, useState } from "react";
-import { useDispatch } from "react-redux";
-import { updateBucketNameDb } from "../../features/bucketSlice";
-import { deleteCard } from "../../features/cardSlice";
 
-export default function ConfirmModal({ isOpen = false, setIsOpen, card }) {
-  const dispatch = useDispatch();
-
+import { Fragment } from "react";
+export default function ConfirmModal({ isOpen, setIsOpen, item, onConfirm }) {
   function closeModal() {
     setIsOpen(false);
   }
 
-  function handleUpdate() {
-    dispatch(deleteCard({ id: card.id }));
+  function handleConfirm() {
+    onConfirm(item);
     closeModal();
   }
 
@@ -51,15 +45,15 @@ export default function ConfirmModal({ isOpen = false, setIsOpen, card }) {
                   >
                     Confirm Delete
                   </Dialog.Title>
-                  <p className=" capitalize">{card?.name}</p>
+                  <p className=" capitalize">{item?.name}</p>
 
                   <div className="flex justify-between">
                     <button
                       type="button"
                       className="px-4 py-2 bg-accent text-white hover:bg-accent/80 rounded-lg font-semibold"
-                      onClick={handleUpdate}
+                      onClick={handleConfirm}
                     >
-                      Delete
+                      Confirm
                     </button>
                     <button
                       type="button"

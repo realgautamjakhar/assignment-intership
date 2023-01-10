@@ -20,6 +20,7 @@ export default function CreateBucketModal({ isOpen = false, setIsOpen }) {
       })
     );
     closeModal();
+    toast.success("Bucket Created Successfully");
   }
 
   return (

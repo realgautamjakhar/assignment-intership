@@ -6,7 +6,7 @@ const CreateBucket = () => {
   const [IsOpen, setIsOpen] = useState(false);
   return (
     <>
-      <CreateBucketModal isOpen={IsOpen} setIsOpen={setIsOpen} />
+      {IsOpen && <CreateBucketModal isOpen={IsOpen} setIsOpen={setIsOpen} />}
       <button
         onClick={() => setIsOpen(true)}
         className="px-4 py-4 text-black flex justify-center flex-col items-center rounded-lg hover:border-2 duration-200 hover:border-dashed hover:origin-right ease-in-out border-accent"

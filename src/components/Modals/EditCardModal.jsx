@@ -1,5 +1,6 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
+import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { editCard } from "../../features/cardSlice";
 import SelectComponent from "../SelectComponent";
@@ -31,6 +32,7 @@ export default function EditCardModal({
       })
     );
     closeModal();
+    toast.success("Card Details Changed Successfully");
   }
   return (
     <>

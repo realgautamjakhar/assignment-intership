@@ -5,6 +5,7 @@ import Home from "./container/Home";
 import Layout from "./page/Layout";
 import { Provider } from "react-redux";
 import { store } from "./store";
+import History from "./container/History";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />
+              <Route path={"/history"} element={<History />} />
               <Route path={"/bucket/:id"} element={<CardPage />} />
             </Route>
           </Routes>

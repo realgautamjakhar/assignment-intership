@@ -49,21 +49,13 @@ export const createBucket = createAsyncThunk(
 export const deleteBucket = createAsyncThunk(
   "/bucket/delete",
   async ({ id }) => {
-    if (id) {
-      //Delete all the containing cards
-      const deleteCards = await fetch(
-        `${import.meta.env.VITE_API_BASE}/cards?bucket=${id}`,
-        {
-          method: "DELETE",
-        }
-      );
-      const deleteBucket = await fetch(
-        `${import.meta.env.VITE_API_BASE}/buckets/${id}`,
-        {
-          method: "DELETE",
-        }
-      );
-    }
+    const deleteBucket = await fetch(
+      `${import.meta.env.VITE_API_BASE}/buckets/${id}`,
+      {
+        method: "DELETE",
+      }
+    );
+    return id;
   }
 );
 
@@ -126,6 +118,14 @@ const bucketsSlice = createSlice({
     builder.addCase(createBucket.rejected, (state, action) => {
       state.error = action.error.message;
       state.loading = false;
+    });
+
+    //Updating the redux state on delete
+    builder.addCase(deleteBucket.fulfilled, (state, action) => {
+      const newState = state.value.filter(
+        (bucket) => bucket.id !== action.payload
+      );
+      state.value = newState;
     });
   },
 });

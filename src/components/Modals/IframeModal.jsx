@@ -1,6 +1,5 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import Iframe from "react-iframe";
 export default function IframeModal({ isOpen, setIsOpen, card }) {
   function closeModal() {
     setIsOpen(false);
@@ -40,24 +39,12 @@ export default function IframeModal({ isOpen, setIsOpen, card }) {
                     {card?.name}
                   </Dialog.Title>
                   <div className="mt-4">
-                    <Iframe
-                      className=" w-full h-96"
-                      src={`https://www.youtube.com/embed/${
-                        card?.link.split("=")[1]
-                      }`}
+                    <iframe
+                      className="w-full h-96"
+                      src={card.link}
                       title={card?.name}
-                    ></Iframe>
+                    ></iframe>
                   </div>
-
-                  {/* <div className="mt-4">
-                    <button
-                      type="button"
-                      className="px-4 py-2 bg-accent text-white hover:bg-accent/80 rounded-lg font-semibold"
-                      onClick={closeModal}
-                    >
-                      Close
-                    </button>
-                  </div> */}
                 </Dialog.Panel>
               </Transition.Child>
             </div>

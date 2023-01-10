@@ -80,15 +80,15 @@ const cardSlice = createSlice({
     //Creating card
     builder.addCase(createCard.fulfilled, (state, action) => {
       state.value.push(action.payload);
-      state.loading = false;
     });
-    builder.addCase(createCard.pending, (state) => {
-      state.loading = true;
-    });
-    builder.addCase(createCard.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.error.message;
-    });
+
+    // builder.addCase(createCard.pending, (state) => {
+    //   state.loading = true;
+    // });
+    // builder.addCase(createCard.rejected, (state, action) => {
+    //   state.loading = false;
+    //   state.error = action.error.message;
+    // });
 
     //Edit Card
     builder.addCase(editCard.fulfilled, (state, action) => {
@@ -104,6 +104,7 @@ const cardSlice = createSlice({
 
     //Delete Card
     builder.addCase(deleteCard.fulfilled, (state, action) => {
+      //This is to update redux state only
       const NewState = state.value.filter((card) => card.id !== action.payload);
       state.value = NewState;
     });

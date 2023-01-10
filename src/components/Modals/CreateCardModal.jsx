@@ -1,5 +1,6 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
+import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { createCard } from "../../features/cardSlice";
 
@@ -24,6 +25,7 @@ export default function CreateCardModal({ isOpen = false, setIsOpen, id }) {
       })
     );
     closeModal();
+    toast.success("Card Created Successfully");
   }
 
   return (
@@ -85,6 +87,9 @@ export default function CreateCardModal({ isOpen = false, setIsOpen, id }) {
                       placeholder="Link Goes here"
                       onChange={(e) => setlink(e.target.value)}
                     />
+                    <p className=" text-start text-xs">
+                      Please enter iframe enable links only
+                    </p>
                   </div>
                   <div className="mt-4">
                     <button

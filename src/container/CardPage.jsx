@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchCards } from "../features/cardSlice";
+import { deleteCard, fetchCards } from "../features/cardSlice";
 import BucketDetails from "../components/BucketDetails";
 import CreateCard from "../components/CreateCard";
 import IframeModal from "../components/Modals/IframeModal";
@@ -13,6 +13,7 @@ import ConfirmModal from "../components/Modals/ConfirmModal";
 import { motion } from "framer-motion";
 import { Staggercontainer, Staggeritem } from "../utils/animation";
 import Loader from "../components/Loader";
+import { addToHistory } from "../features/historySlice";
 
 const CardPage = () => {
   const { id } = useParams();
@@ -29,20 +30,29 @@ const CardPage = () => {
   useEffect(() => {
     dispatch(fetchCards({ bucketid: id }));
   }, [id]);
+
   //Handle Preview Iframe Modal
   function handleCardModal(card) {
+    dispatch(addToHistory({ ...card, watchedAt: new Date().getTime() })); //Adding history here whenever the iframe open
     setselectedCard(card);
     setIframeOpen(true);
   }
 
+  //Handle Edit Card modal
   function handleCardEdit(card) {
     setselectedCard(card);
     setisEditOpen(true);
   }
 
+  //Handle Delete Card Modal
   function handleCardDelete(card) {
     setselectedCard(card);
     setisDeleting(true);
+  }
+
+  function cardDelete(item) {
+    console.log(item);
+    dispatch(deleteCard({ id: item.id }));
   }
 
   return (
@@ -73,7 +83,8 @@ const CardPage = () => {
         <ConfirmModal
           isOpen={isDeleting}
           setIsOpen={setisDeleting}
-          card={selectedCard}
+          item={selectedCard}
+          onConfirm={cardDelete}
         />
       )}
 
